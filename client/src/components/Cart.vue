@@ -2,6 +2,7 @@
     import FlyoutPanel from './FlyoutPanel.vue';
     import cart, { updateProductQuantity } from "../stores/cart"; 
 import { computed } from 'vue';
+import { isLoading } from '@/stores/session';
 
     const { isOpen } = defineProps<{
         isOpen: boolean;
@@ -35,7 +36,7 @@ import { computed } from 'vue';
                     <p>Your cart is empty</p>
                 </div>
                 <div v-else>
-                    <div v-for="item in cart" :key="item.product.id" class="box">
+                    <div v-for="item in cart" :key="item.product._id" class="box">
 
                             <figure class="image is-96x96">
                                 <img :src="item.product.thumbnail" :alt="item.product.title" />
@@ -45,7 +46,10 @@ import { computed } from 'vue';
                                 <div class="price">${{ item.product.price }}</div> 
                                 <div>
                                     x 
-                                    <select :value="item.quantity" class="quantity" @input="(e) => updateProductQuantity(item.product.id,  +(e.target as HTMLSelectElement).value)">
+                                    <select :value="item.quantity"
+                                            :disabled="isLoading" 
+                                            class="quantity"
+                                            @input="(e) => updateProductQuantity(item.product._id,  +(e.target as HTMLSelectElement).value)">
                                         <option value="0">0 (delete)</option>
                                         <option v-for="n in 10" :key="n" :value="n">{{ n }}</option>
                                     </select>

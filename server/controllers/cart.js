@@ -1,19 +1,25 @@
 const express = require('express');
-const { get, add, remove } = require('../models/cart');
+const { get, add, update } = require('../models/cart');
 
 const app = express.Router();
 
 
-app.get('/:userId', (req, res) => {
-    res.send(get(req.params.userId));
+app.get('/:userId', (req, res, next) => {
+    get(req.params.userId)
+    .then(x=> res.status(200).send(x))
+    .catch(next);
 });
 
-app.post('/:userId/:productId/:quantity', (req, res) => {
-    res.send(add(req.params.productId, req.params.userId, req.params.quantity));
+app.post('/:userId', (req, res, next) => {
+    add(req.params.userId, req.body.productId, +req.body.quantity)
+    .then(x=> res.status(201).send(x))
+    .catch(next);
 });
 
-app.delete('/:userId/:productId', (req, res) => {
-    res.send(remove(req.params.userId, req.params.productId));
+app.patch('/:userId/:productId/:quantity', (req, res, next) => {
+    update(req.params.userId, req.params.productId, +req.params.quantity)
+    .then(x=> res.status(200).send(x))
+    .catch(next);
 });
 
 module.exports = app;
