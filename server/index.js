@@ -1,8 +1,8 @@
 const express = require('express')
 const app = express()
 
-const productsController = require('./controllers/products');
-const cartController = require('./controllers/cart');
+const productsController = require('./controllers/products.js');
+const cartController = require('./controllers/cart.js');
 
 const hostname = '127.0.0.1';
 const port = process.env.PORT || 3000;

@@ -1,5 +1,5 @@
 const express = require('express');
-const { get, add, update } = require('../models/cart');
+const { get, add, update } = require('../models/cart.js');
 
 const app = express.Router();
 

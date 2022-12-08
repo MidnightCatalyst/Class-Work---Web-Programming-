@@ -1,4 +1,4 @@
-const { getProduct } = require('./products');
+const { getProduct } = require('./products.js');
 // CartItem: { id: 1, quantity: 2, productId: 1, userId: 'mp@np.edu' }
 const list = [];
 
